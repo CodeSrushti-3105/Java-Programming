@@ -3,22 +3,25 @@
 package calculator;
 
 public class CalculatorOperations {
-   public CalculatorOperations() {
-   }
 
-   public double add(double var1, double var3) {
-      return var1 + var3;
-   }
+    public double add(int var1, int var2) {
+        return var1 + var2;
+    }
 
-   public double subtract(double var1, double var3) {
-      return var1 - var3;
-   }
+    public double sub(int var1, int var2) {
+        return var1 - var2;
+    }
 
-   public double multiply(double var1, double var3) {
-      return var1 * var3;
-   }
+    public double mul(int var1, int var2) {
+        return var1 * var2;
+    }
 
-   public double divide(double var1, double var3) {
-      return var3 == 0.0 ? Double.NaN : var1 / var3;
-   }
+    public double div(int var1, int var2) {
+        if (var2 == 0) {
+            return Double.NaN;
+        } else {
+            return (double) var1 / var2; // Ensure proper float division
+        }
+    }
 }
+
