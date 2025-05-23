@@ -1,35 +1,24 @@
 import java.io.*;
 import java.util.Scanner;
 
-public class SimpleFileHandling {
+public class FileStatistics {
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        System.out.print("Enter file name: ");
+        String fileName = sc.nextLine();
 
-        // Step 1: Create and write to a file
+        int charCount = 0, wordCount = 0, lineCount = 0;
+
         try {
-            System.out.print("Enter file name to create: ");
-            String fileName = sc.nextLine();
-            FileWriter writer = new FileWriter(fileName);
-
-            System.out.println("Enter text (type 'end' in a new line to stop):");
-            while (true) {
-                String line = sc.nextLine();
-                if (line.equalsIgnoreCase("end")) break;
-                writer.write(line + "\n");
-            }
-
-            writer.close();
-            System.out.println("File written successfully.");
-
-            // Step 2: Read and count
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            int charCount = 0, wordCount = 0, lineCount = 0;
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader reader = new BufferedReader(fileReader);
             String line;
 
             while ((line = reader.readLine()) != null) {
                 lineCount++;
-                charCount += line.length();
-                String[] words = line.trim().split("\\s+");
+                charCount += line.length();  // count characters
+                String[] words = line.trim().split("\\s+"); // split by whitespace
                 if (!line.trim().isEmpty()) {
                     wordCount += words.length;
                 }
@@ -37,16 +26,14 @@ public class SimpleFileHandling {
 
             reader.close();
 
-            // Step 3: Show result
             System.out.println("Lines: " + lineCount);
             System.out.println("Words: " + wordCount);
             System.out.println("Characters: " + charCount);
 
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("File not found or error reading file.");
         }
 
-        sc.close(); // ✅ Fixes the resource leak warning
-    
+        sc.close();
     }
 }
